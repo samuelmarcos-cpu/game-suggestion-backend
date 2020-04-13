@@ -1,0 +1,4 @@
+type Query {
+  Poll(poll: Int!): Poll!
+  SearchGames(query: String!): [Game]!
+}

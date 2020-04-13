@@ -1,0 +1,4 @@
+type Mutation {
+    CreatePoll(question: String!, games: [Int!]!): Poll!
+    Vote(option: Int!): Vote!
+}

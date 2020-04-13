@@ -1,0 +1,27 @@
+type Poll {
+    id: Int!
+    question: String!
+    date: Date!
+    options: [Option!]!
+}
+
+type Game {
+    id: Int!
+    name: String!
+    image: String
+    year: Int
+    options: [Option]!
+}
+
+type Option {
+    id: Int!
+    game: Game!
+    votes: [Vote]!
+    poll: Poll!
+}
+
+type Vote {
+    id: Int!
+    date: Date!
+    option: Option!
+}
