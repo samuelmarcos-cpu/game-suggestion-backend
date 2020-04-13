@@ -38,17 +38,17 @@ exports.up = function (knex) {
           date: '2020-03-21 00:00:00'
         },
         {
-          poll_id: 4,
+          poll_id: 2,
           game: 8263,
           date: '2020-03-22 00:00:00'
         },
         {
-          poll_id: 4,
+          poll_id: 2,
           game: 127,
           date: '2020-03-23 00:00:00'
         },
         {
-          poll_id: 4,
+          poll_id: 2,
           game: 1266,
           date: '2020-03-23 00:00:00'
         }

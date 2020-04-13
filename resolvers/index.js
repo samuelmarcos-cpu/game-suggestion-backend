@@ -4,9 +4,8 @@ const Mutation = require('./Mutation')
 const Date = require('./Type/date')
 
 const Poll = require('./Type/poll')
-const Option = require('./Type/option')
-const Game = require('./Type/game')
 const Vote = require('./Type/vote')
+const Game = require('./Type/game')
 
 module.exports = {
   Query,
@@ -15,7 +14,6 @@ module.exports = {
   Date,
 
   Poll,
-  Option,
-  Game,
-  Vote
+  Vote,
+  Game
 }

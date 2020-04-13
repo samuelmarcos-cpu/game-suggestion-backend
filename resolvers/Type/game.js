@@ -1,5 +1,9 @@
 const db = require('../../config/db')
 
 module.exports = {
-    options: (game) => db('option').where({ game: game.id })
+  votes (game) {
+    return db('vote').where({
+      game: game.id
+    })
+  }
 }

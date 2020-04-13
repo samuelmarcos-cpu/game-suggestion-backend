@@ -1,27 +1,33 @@
 type Poll {
-    id: Int!
-    question: String!
-    date: Date!
-    options: [Option!]!
+  id: Int!
+  question: String!
+  date: Date!
+  platforms: [Platform]!
+  votes: [Vote]!
+}
+
+input PollInput {
+  question: String!
+  platforms: [Int]!
+}
+
+type Platform {
+  id: Int!
+  name: String!
+  image: String
 }
 
 type Game {
-    id: Int!
-    name: String!
-    image: String
-    year: Int
-    options: [Option]!
-}
-
-type Option {
-    id: Int!
-    game: Game!
-    votes: [Vote]!
-    poll: Poll!
+  id: Int!
+  name: String!
+  image: String
+  year: Int
+  votes: [Vote]!
 }
 
 type Vote {
-    id: Int!
-    date: Date!
-    option: Option!
+  id: Int!
+  poll: Poll!
+  game: Game!
+  date: Date!
 }

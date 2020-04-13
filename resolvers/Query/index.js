@@ -1,7 +1,9 @@
 const poll = require('./poll')
-const game = require('./game')
+const platform = require('./igdb/platform')
+const game = require('./igdb/game')
 
 module.exports = {
   ...poll,
+  ...platform,
   ...game
 }
