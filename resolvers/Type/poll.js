@@ -1,5 +1,5 @@
 const db = require('../../config/db')
-const { query } = require('../utils')
+const { formatFields, query } = require('../utils')
 
 module.exports = {
   async platforms (poll) {
@@ -9,14 +9,32 @@ module.exports = {
     const platforms = restrict_platform.map(restrict => {
       return restrict.platform
     })
-    console.log(platforms)
-    const data = query(
-      'platforms',
-      ['name', 'platform_logo.url'],
-      { id: platforms },
-      platforms.length
-    )
-    console.log(data)
+    ids = formatFields(platforms)
+
+    const data = await query('platforms', ['name', 'platform_logo.url'], {
+      where: `id = (${ids})`,
+      limit: platforms.length
+    })
+
+    return data.map(platform => {
+      return {
+        name: platform.name,
+        image: platform.platform_logo ? platform.platform_logo.url : null
+      }
+    })
+  },
+  async genres (poll) {
+    const restrict_genre = await db('restrict_genre').where({
+      poll_id: poll.id
+    })
+    const genres = restrict_genre.map(restrict => {
+      return restrict.genre
+    })
+    ids = formatFields(genres)
+    return await query('genres', ['name'], {
+      where: `id = (${ids})`,
+      limit: genres.length
+    })
   },
   votes (poll) {
     return db('vote').where({

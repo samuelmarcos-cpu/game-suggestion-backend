@@ -13,6 +13,11 @@ module.exports = {
       throw new Error('One of the platforms does not exist')
     }
 
+    const genres = data.genres
+    if (!(await hasIGDB(genres, 'genres'))) {
+      throw new Error('One of the genres does not exist')
+    }
+
     const q = await db('poll').insert({
       question: question
     })
@@ -23,6 +28,15 @@ module.exports = {
         return {
           poll_id,
           platform
+        }
+      })
+    )
+
+    await db('restrict_genre').insert(
+      genres.map(genre => {
+        return {
+          poll_id,
+          genre
         }
       })
     )

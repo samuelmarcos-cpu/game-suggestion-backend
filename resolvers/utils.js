@@ -15,6 +15,7 @@ function validateQuery (query) {
 }
 
 module.exports = {
+  formatFields,
   async hasIGDB (itens, endpoint) {
     ids = formatFields(itens)
     const { data } = await axios.post(
@@ -23,22 +24,33 @@ module.exports = {
     )
     return itens.length === data.length
   },
-  async query (endpoint, fields, where, limit) {
+  async query (endpoint, fields, conditions) {
     fields = formatFields(fields)
-    where = where.reduce((str, c) => {}, '') // resolver isso
-    const raw = `fields ${fields};
-  search "${query}";
-  where "${where}";
-  limit ${limit};`
+
+    let comp = ''
+    for (let tag in conditions) {
+      comp += `${tag} ${conditions[tag]};`
+    }
+
+    const raw = `fields ${fields}; ${comp}`
     const { data } = await axios.post(endpoint, raw)
     return data
   },
-  async search (query, endpoint, fields, limit) {
-    validateQuery(query)
+  async search (endpoint, fields, query, limit) {
+    let raw = ''
+
+    if (query) {
+      validateQuery(query)
+      raw += `search "${query}";`
+    }
+
     fields = formatFields(fields)
-    const raw = `fields ${fields};
-  search "${query}";
-  limit ${limit};`
+    raw += `fields ${fields};`
+
+    if (limit) {
+      raw += `limit ${limit};`
+    }
+
     const { data } = await axios.post(endpoint, raw)
     return data
   }

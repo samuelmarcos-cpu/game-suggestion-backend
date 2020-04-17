@@ -3,18 +3,25 @@ type Poll {
   question: String!
   date: Date!
   platforms: [Platform]!
+  genres: [Genre]!
   votes: [Vote]!
 }
 
 input PollInput {
   question: String!
   platforms: [Int]!
+  genres: [Int]!
 }
 
 type Platform {
   id: Int!
   name: String!
   image: String
+}
+
+type Genre {
+  id: Int!
+  name: String!
 }
 
 type Game {

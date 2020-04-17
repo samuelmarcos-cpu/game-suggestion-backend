@@ -3,9 +3,9 @@ const { search } = require('../../utils')
 module.exports = {
   async SearchGames (_, { query }) {
     const data = await search(
-      query,
       'games',
       ['name', 'cover.url', 'first_release_date'],
+      query,
       20
     )
     const games = data.map(game => {

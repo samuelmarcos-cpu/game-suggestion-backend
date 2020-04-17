@@ -14,7 +14,7 @@ module.exports = {
                 sort name asc;`
     )
     const [game] = data
-    const dateGame = new Date(game['first_release_date'] * 1000)
+    const dateGame = new Date(game.first_release_date * 1000)
     const year = dateGame.getFullYear()
     return {
       id: game.id,
