@@ -6,6 +6,11 @@ module.exports = {
     const restrict_platform = await db('restrict_platform').where({
       poll_id: poll.id
     })
+
+    if (restrict_platform.length === 0) {
+      return restrict_platform
+    }
+
     const platforms = restrict_platform.map(restrict => {
       return restrict.platform
     })
@@ -27,6 +32,11 @@ module.exports = {
     const restrict_genre = await db('restrict_genre').where({
       poll_id: poll.id
     })
+
+    if (restrict_genre.length === 0) {
+      return restrict_genre
+    }
+
     const genres = restrict_genre.map(restrict => {
       return restrict.genre
     })
@@ -37,8 +47,6 @@ module.exports = {
     })
   },
   votes (poll) {
-    return db('vote').where({
-      poll_id: poll.id
-    })
+    return db('vote').where({ poll_id: poll.id })
   }
 }

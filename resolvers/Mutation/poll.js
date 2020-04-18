@@ -1,5 +1,5 @@
 const db = require('../../config/db')
-const { hasIGDB } = require('../utils')
+const { hasIGDB, formatFields, query } = require('../utils')
 
 module.exports = {
   async CreatePoll (_, { data }) {
@@ -8,14 +8,34 @@ module.exports = {
       throw new Error('Poll must be bigger than 10 character')
     }
 
+    let where = ''
+
     const platforms = data.platforms
-    if (!(await hasIGDB(platforms, 'platforms'))) {
-      throw new Error('One of the platforms does not exist')
+    if (platforms.length > 0) {
+      if (!(await hasIGDB(platforms, 'platforms'))) {
+        throw new Error('One of the platforms does not exist')
+      }
+      where += `platforms = (${formatFields(platforms)})`
     }
 
     const genres = data.genres
-    if (!(await hasIGDB(genres, 'genres'))) {
-      throw new Error('One of the genres does not exist')
+    if (genres.length > 0) {
+      if (!(await hasIGDB(genres, 'genres'))) {
+        throw new Error('One of the genres does not exist')
+      }
+      where += platforms.length > 0 ? ' & ' : ''
+      where += `genres = (${formatFields(genres)})`
+    }
+
+    if (where.length > 0) {
+      const data = await query('games', ['id'], {
+        where,
+        limit: 2
+      })
+      console.log(where, data)
+      if (data.length < 2) {
+        throw new Error('there are too many restrictions')
+      }
     }
 
     const q = await db('poll').insert({
