@@ -23,6 +23,7 @@ module.exports = {
 
     return data.map(platform => {
       return {
+        id: platform.id,
         name: platform.name,
         image: platform.platform_logo ? platform.platform_logo.url : null
       }

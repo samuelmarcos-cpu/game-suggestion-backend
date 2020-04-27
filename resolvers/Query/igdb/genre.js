@@ -1,7 +1,7 @@
-const { search } = require('../../utils')
+const { query } = require('../../utils')
 
 module.exports = {
   Genres () {
-    return search('genres', ['name'])
+    return query('genres', ['name'])
   }
 }

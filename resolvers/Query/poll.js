@@ -7,5 +7,7 @@ module.exports = {
     return db('poll')
       .where({ id })
       .first()
-  }
+  },
+  SearchPoll: (_, { query }) =>
+    db('poll').where('question', 'like', `%${query}%`)
 }

@@ -29,28 +29,13 @@ module.exports = {
 
     let comp = ''
     for (let tag in conditions) {
-      comp += `${tag} ${conditions[tag]};`
+      const condition = conditions[tag]
+      if (condition.length > 0) {
+        comp += `${tag} ${condition};`
+      }
     }
 
     const raw = `fields ${fields}; ${comp}`
-    const { data } = await axios.post(endpoint, raw)
-    return data
-  },
-  async search (endpoint, fields, query, limit) {
-    let raw = ''
-
-    if (query) {
-      validateQuery(query)
-      raw += `search "${query}";`
-    }
-
-    fields = formatFields(fields)
-    raw += `fields ${fields};`
-
-    if (limit) {
-      raw += `limit ${limit};`
-    }
-
     const { data } = await axios.post(endpoint, raw)
     return data
   }

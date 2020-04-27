@@ -1,4 +1,7 @@
 type Mutation {
   CreatePoll(data: PollInput!): Poll!
   Vote(poll: Int!, game: Int!): Vote!
+  newUser(nick: String!, password: String!): User!
+  alterUser(nick: String!, password: String!): User!
+  deleteUser: Boolean!
 }

@@ -1,6 +1,10 @@
 type Query {
   Poll(poll: Int!): Poll!
-  SearchPlatforms(query: String!): [Platform]!
   Genres: [Genre!]!
-  SearchGames(query: String!): [Game]!
+
+  SearchPoll(query: String!): [Poll]!
+  SearchPlatforms(query: String!): [Platform]!
+  SearchGames(poll: Int!, query: String!): [Game]!
+
+  Login(nick: String!, password: String!): User
 }

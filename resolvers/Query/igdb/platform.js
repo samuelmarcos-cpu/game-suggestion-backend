@@ -1,11 +1,12 @@
-const { search } = require('../../utils')
+const { query: queryApi } = require('../../utils')
 
 module.exports = {
   async SearchPlatforms (_, { query }) {
-    const data = await search(
+    query = query.trim()
+    const data = await queryApi(
       'platforms',
       ['name', 'platform_logo.url'],
-      query,
+      { search: query.length > 0 ? `"${query}"` : '' },
       20
     )
     return data.map(platform => {
