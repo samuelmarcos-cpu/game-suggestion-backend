@@ -2,7 +2,7 @@ const db = require('../../config/db')
 const { hasIGDB, formatFields, query } = require('../utils')
 
 module.exports = {
-  async CreatePoll (_, { data }) {
+  async CreatePoll (_, { data }, ctx) {
     const question = data.question
     if (question && question.trim().length < 10) {
       throw new Error('Poll must be bigger than 10 character')
@@ -32,16 +32,17 @@ module.exports = {
         where,
         limit: 2
       })
-      console.log(where, data)
       if (data.length < 2) {
         throw new Error('there are too many restrictions')
       }
     }
 
-    const q = await db('poll').insert({
-      question: question
-    })
-    const poll_id = q[0]
+    const [poll_id] = await db('poll')
+      .insert({
+        question: question,
+        created_by: ctx.user && ctx.user.id
+      })
+      .returning('id')
 
     await db('restrict_platform').insert(
       platforms.map(platform => {

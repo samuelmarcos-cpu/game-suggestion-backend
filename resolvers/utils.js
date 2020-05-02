@@ -29,13 +29,13 @@ module.exports = {
 
     let comp = ''
     for (let tag in conditions) {
-      const condition = conditions[tag]
+      const condition = conditions[tag].toString()
       if (condition.length > 0) {
         comp += `${tag} ${condition};`
       }
     }
 
-    const raw = `fields ${fields}; ${comp}`
+    const raw = `fields ${fields};${comp}`
     const { data } = await axios.post(endpoint, raw)
     return data
   }

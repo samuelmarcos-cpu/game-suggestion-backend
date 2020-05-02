@@ -10,7 +10,9 @@ module.exports = {
     password = bcrypt.hashSync(password, salt)
 
     try {
-      const [id] = await db(table).insert({ nick, password })
+      const [id] = await db(table)
+        .insert({ nick, password })
+        .returning('id')
 
       const user = await db(table)
         .where({ id })

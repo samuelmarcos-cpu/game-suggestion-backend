@@ -7,4 +7,5 @@ type Query {
   SearchGames(poll: Int!, query: String!): [Game]!
 
   Login(nick: String!, password: String!): User
+  MyPolls: [Poll]!
 }

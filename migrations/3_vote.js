@@ -19,6 +19,12 @@ exports.up = function (knex) {
         .references('poll.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
+      table.integer('created_by').unsigned()
+      table
+        .foreign('created_by')
+        .references('user.id')
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE')
     })
     .then(function () {
       return knex('vote').insert([

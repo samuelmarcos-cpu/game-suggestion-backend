@@ -14,5 +14,10 @@ module.exports = {
     if (equals === false) throw error
 
     return getLoggedUser(user)
+  },
+  async MyPolls (_, __, ctx) {
+    ctx.validateUser()
+
+    return await db('poll').where({ created_by: ctx.user.id })
   }
 }
