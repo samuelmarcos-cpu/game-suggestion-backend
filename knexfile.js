@@ -1,7 +1,7 @@
 // Update with your config settings.
 require('dotenv').config()
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 
 const url = process.env.DATABASE_URL
 
