@@ -37,12 +37,11 @@ module.exports = {
       }
     }
 
-    const [poll_id] = await db('poll')
-      .insert({
-        question: question,
-        created_by: ctx.user && ctx.user.id
-      })
-      .returning('id')
+    const [poll_id] = await db('poll').insert({
+      question: question,
+      created_by: ctx.user && ctx.user.id
+    })
+    // .returning('id')
 
     await db('restrict_platform').insert(
       platforms.map(platform => {

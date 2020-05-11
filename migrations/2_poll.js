@@ -17,7 +17,7 @@ exports.up = function (knex) {
     .then(function () {
       return knex('poll').insert([
         {
-          question: 'Qual é o melhor jogo 2D do Sonic?',
+          question: 'Melhor jogo 2D do Sonic?',
           date: '2020-03-20 00:00:00'
         },
         {
