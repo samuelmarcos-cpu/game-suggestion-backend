@@ -6,7 +6,7 @@ let config
 if (url) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
   config = {
-    client: 'pq',
+    client: 'pg',
     connection: url + '?ssl=true'
   }
 } else {
